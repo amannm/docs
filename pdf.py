@@ -10,11 +10,6 @@ import sys
 import urllib.request
 from urllib.parse import urlparse, unquote
 
-
-# for Yamaha MusicCast spec:
-# Basic: https://community.symcon.de/uploads/short-url/7r8QTdkYFNfJVJmKbtqvdleuzKt.pdf
-# Advanced: https://community.symcon.de/uploads/short-url/vRXaJXAn6vI2DSQYMHF0aqLbdir.pdf
-
 def download_pdf(url: str) -> tuple[str, bytes]:
     """Download PDF from URL, following redirects. Returns (filename, content)."""
     req = urllib.request.Request(url, headers={"User-Agent": "PDFSplitter/1.0"})
