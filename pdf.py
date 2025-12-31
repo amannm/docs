@@ -7,36 +7,6 @@ import argparse
 import os
 import re
 import sys
-import urllib.request
-from urllib.parse import urlparse, unquote
-
-def download_pdf(url: str) -> tuple[str, bytes]:
-    """Download PDF from URL, following redirects. Returns (filename, content)."""
-    req = urllib.request.Request(url, headers={"User-Agent": "PDFSplitter/1.0"})
-    with urllib.request.urlopen(req) as response:
-        content = response.read()
-
-        # Try to get filename from Content-Disposition header
-        content_disp = response.headers.get("Content-Disposition", "")
-        filename = None
-        if "filename=" in content_disp:
-            match = re.search(r'filename[*]?=["\']?([^"\';]+)["\']?', content_disp)
-            if match:
-                filename = match.group(1)
-                # Handle RFC 5987 encoded filenames (e.g., filename*=UTF-8''name.pdf)
-                if filename.startswith("UTF-8''") or filename.startswith("utf-8''"):
-                    filename = unquote(filename.split("''", 1)[1])
-
-        # Fall back to URL path
-        if not filename:
-            parsed = urlparse(response.url)
-            filename = os.path.basename(parsed.path)
-
-        # Ensure .pdf extension
-        if not filename.lower().endswith(".pdf"):
-            filename += ".pdf"
-
-        return filename, content
 
 
 def sanitize_filename(name: str) -> str:
@@ -107,20 +77,26 @@ def split_pdf(pdf_content: bytes, output_dir: str) -> int:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Download a PDF and split it into individual pages",
+        description="Split a local PDF into individual pages",
         epilog="""Examples:
-  %(prog)s https://example.com/userguide.pdf
-  %(prog)s -o ./output https://example.com/manual.pdf"""
+  %(prog)s ./userguide.pdf
+  %(prog)s -o ./output ./manual.pdf"""
     )
-    parser.add_argument("url", help="URL of the PDF to download")
+    parser.add_argument("pdf_path", help="Path to a local PDF file")
     parser.add_argument("-o", "--output", help="Output directory (default: derived from PDF filename)")
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
     args = parser.parse_args()
 
-    # Download PDF
-    print(f"Downloading: {args.url}", file=sys.stderr)
-    filename, content = download_pdf(args.url)
-    print(f"Downloaded: {filename} ({len(content)} bytes)", file=sys.stderr)
+    pdf_path = os.path.abspath(args.pdf_path)
+    if not os.path.isfile(pdf_path):
+        raise FileNotFoundError(f"PDF not found: {pdf_path}")
+
+    if not pdf_path.lower().endswith(".pdf"):
+        raise ValueError(f"Not a .pdf file: {pdf_path}")
+
+    filename = os.path.basename(pdf_path)
+    with open(pdf_path, "rb") as handle:
+        content = handle.read()
 
     # Determine output directory
     if args.output:
