@@ -1,5 +1,5 @@
 # Project objectives
-- A collection of utilities for generating local GitHub-flavored Markdown documentation from official public sources.
+- A collection of utilities for generating local LLM-friendly documentation from official public sources.
 - Each utility custom-tailored and optimized for a particular source.
 
 # Environment
