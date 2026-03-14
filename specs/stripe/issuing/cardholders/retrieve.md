@@ -1,0 +1,56 @@
+# Retrieve a cardholder
+
+Retrieves an Issuing `Cardholder` object.
+
+## Returns
+
+Returns an Issuing `Cardholder` object if a valid identifier was provided.
+
+```curl
+curl https://api.stripe.com/v1/issuing/cardholders/ich_1MsKAB2eZvKYlo2C3eZ2BdvK \
+  -u "<<YOUR_SECRET_KEY>>"
+```
+
+### Response
+
+```json
+{
+  "id": "ich_1MsKAB2eZvKYlo2C3eZ2BdvK",
+  "object": "issuing.cardholder",
+  "billing": {
+    "address": {
+      "line1": "1234 Main Street",
+      "city": "San Francisco",
+      "state": "CA",
+      "country": "US",
+      "postal_code": "94111"
+    }
+  },
+  "company": null,
+  "created": 1680415995,
+  "email": "jenny.rosen@example.com",
+  "individual": null,
+  "livemode": false,
+  "metadata": {},
+  "name": "Jenny Rosen",
+  "phone_number": "+18888675309",
+  "redaction": null,
+  "requirements": {
+    "disabled_reason": "requirements.past_due",
+    "past_due": [
+      "individual.card_issuing.user_terms_acceptance.ip",
+      "individual.card_issuing.user_terms_acceptance.date",
+      "individual.first_name",
+      "individual.last_name"
+    ]
+  },
+  "spending_controls": {
+    "allowed_categories": [],
+    "blocked_categories": [],
+    "spending_limits": [],
+    "spending_limits_currency": null
+  },
+  "status": "active",
+  "type": "individual"
+}
+```
