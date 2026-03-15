@@ -1,0 +1,9 @@
+[submodule "specs/google/googleapis"]
+	path = specs/google/googleapis
+	url = https://github.com/googleapis/googleapis
+[submodule "specs/cloudflare/api-schemas"]
+	path = specs/cloudflare/api-schemas
+	url = https://github.com/cloudflare/api-schemas
+[submodule "specs/aws/api-models-aws"]
+	path = specs/aws/api-models-aws
+	url = https://github.com/aws/api-models-aws
