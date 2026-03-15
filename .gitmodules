@@ -7,3 +7,9 @@
 [submodule "specs/aws/api-models-aws"]
 	path = specs/aws/api-models-aws
 	url = https://github.com/aws/api-models-aws
+[submodule "specs/ucp/ucp"]
+	path = specs/ucp/ucp
+	url = https://github.com/Universal-Commerce-Protocol/ucp
+[submodule "specs/acp/agentic-commerce-protocol"]
+	path = specs/acp/agentic-commerce-protocol
+	url = https://github.com/agentic-commerce-protocol/agentic-commerce-protocol
