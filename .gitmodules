@@ -13,3 +13,6 @@
 [submodule "specs/acp/agentic-commerce-protocol"]
 	path = specs/acp/agentic-commerce-protocol
 	url = https://github.com/agentic-commerce-protocol/agentic-commerce-protocol
+[submodule "specs/webauthn/webauthn"]
+	path = specs/webauthn/webauthn
+	url = https://github.com/w3c/webauthn
